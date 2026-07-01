@@ -29,10 +29,12 @@ OPERATION_MODE    = 4                    # ECU Normal-Betriebsmodus
 
 # Liste aller DTCs die vor jedem Test inaktiv sein müssen (Precondition)
 DTC_Signals = [
-    "DTC_Signal_OV",        # Overvoltage DTC
-    "DTC_Signal_UV",        # Undervoltage DTC
-    "DTC_CAN_Failure",      # CAN Bus Failure DTC
-    "DTC_CAN_Timeout",      # CAN Timeout DTC
+    "DTC_Overvoltage",
+    "DTC_Undervoltage",
+    "DTC_CAN_Timeout",
+    "DTC_CAN_Failure",
+    "DTC_Sensor_Failure",
+    "DTC_NVM_Error",
 ]
 
 HIL = HILTest(CANOE_CONFIG)

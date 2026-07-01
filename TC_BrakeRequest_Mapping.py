@@ -58,6 +58,17 @@ SETTLE_TIME  = 0.1                       # Wartezeit nach Spannungsänderung [s]
 SCALING_VOLT = [0.0,  1.0,     2.5,     4.0,     5.0]
 SCALING_N    = [0,    6_000,   15_000,  24_000,  30_000]
 
+DTC_Signals = [
+    "DTC_Overvoltage",
+    "DTC_Undervoltage",
+    "DTC_CAN_Timeout",
+    "DTC_CAN_Failure",
+    "DTC_Sensor_Failure",
+    "DTC_NVM_Error",
+]
+
+HIL = HILTest(CANOE_CONFIG)
+
 
 # ------------------------------------------------------------------
 # Hilfsfunktionen
@@ -87,6 +98,9 @@ def TC_001_minimum_voltage(hil: HILTest):
     """
     hil.start_test_case("TC_001_Minimum_Spannung_0V")
 
+    if not hil.check_precondition_operation_mode(DTC_Signals):
+        return
+
     set_voltage(hil, 0.0)
     verify_clamp(hil, expected_n=0)
 
@@ -101,6 +115,9 @@ def TC_002_maximum_voltage(hil: HILTest):
     Prüft den oberen Grenzwert des Wertebereichs.
     """
     hil.start_test_case("TC_002_Maximum_Spannung_5V")
+
+    if not hil.check_precondition_operation_mode(DTC_Signals):
+        return
 
     set_voltage(hil, 5.0)
     verify_clamp(hil, expected_n=CLAMP_MAX_N)
@@ -117,6 +134,9 @@ def TC_003_scaling_verification(hil: HILTest):
     und mit dem ECU-Ausgangswert verglichen.
     """
     hil.start_test_case("TC_003_Skalierung_Spannung_zu_Klemmkraft")
+
+    if not hil.check_precondition_operation_mode(DTC_Signals):
+        return
 
     test_voltages = [1.0, 2.5, 4.0]
 
@@ -139,6 +159,9 @@ def TC_004_upper_boundary_clamp(hil: HILTest):
     darf die Klemmkraft nicht über 30 000 N treiben (Clamp-Verhalten der ECU).
     """
     hil.start_test_case("TC_004_Spannung_Ueber_Bereich_5V5")
+
+    if not hil.check_precondition_operation_mode(DTC_Signals):
+        return
 
     set_voltage(hil, 5.5)
     # ECU muss auf Maximum klemmen, kein Überschwingen
@@ -163,6 +186,9 @@ def TC_005_e2e_error_handling(hil: HILTest):
       3. Neue Spannung (4.0 V) setzen      →  Klemmkraft MUSS bei 15 000 N bleiben
     """
     hil.start_test_case("TC_005_E2E_Fehler_Handling")
+
+    if not hil.check_precondition_operation_mode(DTC_Signals):
+        return
 
     # Schritt 1: Gültigen Zustand herstellen
     hil.set_environment_variable_value("E2E_ErrorSimulation", 0)   # E2E gültig

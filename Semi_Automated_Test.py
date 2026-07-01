@@ -25,7 +25,14 @@ DTC_SENSOR_FAIL  = "DTC_Sensor_Fail"
 
 REACTION_TIMEOUT = 5.0                  # Maximale Zeit bis DTC gesetzt wird [s]
 
-DTC_Signals = [DTC_CAN_FAILURE, DTC_SENSOR_FAIL]
+DTC_Signals = [
+    "DTC_Overvoltage",
+    "DTC_Undervoltage",
+    "DTC_CAN_Timeout",
+    "DTC_CAN_Failure",
+    "DTC_Sensor_Failure",
+    "DTC_NVM_Error",
+]
 
 HIL = HILTest(CANOE_CONFIG)
 

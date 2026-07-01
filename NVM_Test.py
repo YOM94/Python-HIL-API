@@ -32,7 +32,14 @@ IGNITION_OFF_WAIT = 1.0                 # Wartezeit nach Ignition OFF [s]
 ECU_BOOT_TIMEOUT  = 5.0                 # Maximale Wartezeit bis ECU bereit [s]
 TOLERANCE_N       = 0                   # NVM-Wert muss exakt stimmen
 
-DTC_Signals       = []
+DTC_Signals = [
+    "DTC_Overvoltage",
+    "DTC_Undervoltage",
+    "DTC_CAN_Timeout",
+    "DTC_CAN_Failure",
+    "DTC_Sensor_Failure",
+    "DTC_NVM_Error",
+]
 
 HIL = HILTest(CANOE_CONFIG)
 

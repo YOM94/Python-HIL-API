@@ -30,8 +30,14 @@ SETTLE_TIME   = 0.1                     # Wartezeit nach Spannungsänderung [s]
 # Testspannungen (dürfen ungeordnet sein — jede wird einzeln geprüft)
 VOLTAGE_VALUES = [0.0, 1.9, 2.3, 5.0]
 
-# Keine DTCs werden als Precondition verlangt (Liste leer = keine Prüfung)
-DTC_Signals = []
+DTC_Signals = [
+    "DTC_Overvoltage",
+    "DTC_Undervoltage",
+    "DTC_CAN_Timeout",
+    "DTC_CAN_Failure",
+    "DTC_Sensor_Failure",
+    "DTC_NVM_Error",
+]
 
 HIL = HILTest(CANOE_CONFIG)
 
