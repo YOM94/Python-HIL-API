@@ -1,0 +1,18 @@
+# CANoe Konfigurationsdateien (projektspezifisch, nicht hochladen)
+*.cfg
+*.db
+*.dbc
+
+# Generierte Reports
+C:/Reports/
+reports/
+*.txt
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.vscode/
+.idea/
